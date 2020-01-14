@@ -9,4 +9,4 @@ There are 3 routes :
   * "/contact" (Contact Us Route)
   
  
-Please note, after you download this project to your computer, open it in VS Code, then open the terminal and lastly run the command **npm install** That command is needed to download the node_modules folder into your project so that you run it!
+Please note, after you download this project to your computer, open it in VS Code, then open the terminal and lastly run the command **npm install**. That command is needed to download the node_modules folder into your project so that you run it!
