@@ -2,96 +2,43 @@ const express = require("express"); //this imports the express package that was 
 
 const app = express(); // this creates your express app object
 
+const exphbs= require("express-handlebars");
 
-//this function returns the HTML (with injected data) for every web page
-const htmlTemplate = obj =>
-{
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>${obj.title}</title>
-    </head>
-    <body>
-            <header>
-                <h1>${obj.headingInfo}</h1>
-            </header>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/contact-us">Contact Us</a></li>
-                    <li><a href="/products">Products</a></li>
-                </ul>
-            </nav>
-            <main>
-                ${obj.HTML}
-            </main>
-            <footer>
-                Created by WEB322
-            </footer>
-    </body>
-</html>`;
 
-}
+
+//This tells express to set up our template engine has handlebars
+app.engine("handlebars",exphbs());
+app.set("view engine", "handlebars");
+
+
+
 
 
 //Route for the Home Page
 app.get("/",(req,res)=>{
 
-    const data =
-    {
-        title: `Home Page`,
-        headingInfo :`Home Page`,
-        HTML:
-        `<section>
-            <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi laboriosam 
-                ipsum quis eveniet nemo iusto.
-            </p>
-        </section>`
-    };
-
-
-    res.send(htmlTemplate(data));
    
+    res.render("index",{
+        title:"Home",
+        headingInfo: "Home Page"
+
+    });
 
 });
 
 app.get("/contact-us",(req,res)=>{
 
+    res.render("contact",{
+        title:"Contact",
+        headingInfo: "Contact Us Page"
 
-    const data =
-    {
-        title: `Contact Us`,
-        headingInfo :`Contact Us`,
-        HTML:
-        `
-        <section>
-            <form method="POST" action="/contact-us">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName"> <br>
+    });
 
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName"> <br>
-
-                <label for="phoneNo">Phone No</label>
-                <input type="text" id="phoneNo" name="phoneNo"> <br>
-
-                <label for="message">Message</label>
-                <textarea type="text" id="message" name="message"></textarea>
-
-                <input type="submit" value="Contact Us">
-            </form>
-        </section>`
-    };
-
-    res.send(htmlTemplate(data));
 
 });
 
 app.get("/products",(req,res)=>{
+
 
     const fakeDB= []
 
@@ -108,34 +55,16 @@ app.get("/products",(req,res)=>{
     fakeDB.push({title:'XPS 17',description:`XPS 17 is designed to keep you entertained for more than 9 hours 
     with a 9-cell battery upgrade.`,price:`1949.99`});
 
-    let htmlSnippet=``;
+    res.render("products",{
+        title:"Products",
+        headingInfo: "Products Page",
+        products :fakeDB
 
-    //pulls data from database and bill the html string that will be injected into the section
-    for(let i=0; i<fakeDB.length; i++)
-    {
-        htmlSnippet+=
-        ` <div>
-                <p>Product Title :${fakeDB[i].title} </p>
-                <p>Price : ${fakeDB[i].price} </p>
-                <p>Description : ${fakeDB[i].description} </p>
-          </div>
-        `;
-    }
-
-    const data =
-    {
-
-        title: `Products`,
-        headingInfo :`Products`,
-        HTML:
-        `
-        <section>
-            ${htmlSnippet}
-        </section>`
-    };
-
-    res.send(htmlTemplate(data));
+    });
+   
 });
+
+
 
 const PORT=3000;
 //This creates an Express Web Server that listens to HTTP Reuqest on port 3000
