@@ -1,0 +1,30 @@
+
+<!-- Will only show if the errors array exists-->
+{{#each errors}}
+
+    <div >{{this}}</div>
+{{/each}}
+
+
+<!--This will only show if the successMessage was injected into the view -->
+<div>{{successMessage}}</div>
+    <form action="/contactus" method="POST">
+
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName"> <br>
+
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName"> <br>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message"></textarea><br><br>
+
+        <input type="submit" value="Contact">
+
+    </form>
+
+</section>
+
+
+
