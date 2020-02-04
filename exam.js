@@ -16,6 +16,9 @@ app.set('view engine', 'handlebars');
 //body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//loading static assests middleware
+app.use(express.static("public"));
+
 
 //define your routes for the exam here
 
